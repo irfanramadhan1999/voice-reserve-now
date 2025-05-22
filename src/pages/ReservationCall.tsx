@@ -146,24 +146,24 @@ const ReservationCall = () => {
           {/* Call Interface */}
           <div className="mb-10">
             <div className="flex flex-col items-center">
-              <div className="w-32 h-32 rounded-full bg-blue-100 flex items-center justify-center mb-4 relative">
-                <div className="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center">
+              <div className="w-36 h-36 rounded-full bg-blue-100 flex items-center justify-center mb-4 relative">
+                <div className="w-28 h-28 rounded-full bg-blue-500 flex items-center justify-center">
                   {callStatus === "ready" && (
                     <Button 
                       onClick={startCall} 
-                      className="h-16 w-16 rounded-full bg-green-500 hover:bg-green-600 border-4 border-white"
+                      className="h-20 w-20 rounded-full bg-green-500 hover:bg-green-600 border-4 border-white"
                     >
-                      <Mic className="h-6 w-6 text-white" />
+                      <Mic className="h-8 w-8 text-white" />
                     </Button>
                   )}
                   {callStatus === "active" && (
-                    <div className="h-16 w-16 rounded-full bg-red-500 border-4 border-white flex items-center justify-center">
-                      <MicOff className="h-6 w-6 text-white" />
+                    <div className="h-20 w-20 rounded-full bg-red-500 border-4 border-white flex items-center justify-center">
+                      <MicOff className="h-8 w-8 text-white" />
                     </div>
                   )}
                   {callStatus === "completed" && (
                     <div className="text-white flex items-center">
-                      <X className="h-8 w-8" />
+                      <X className="h-10 w-10" />
                     </div>
                   )}
                 </div>
@@ -185,6 +185,17 @@ const ReservationCall = () => {
               )}
             </div>
           </div>
+          
+          {/* Empty State - Only shown when no reservation and call not active */}
+          {callStatus === "ready" && (
+            <div className="text-center bg-gray-50 rounded-lg p-6 mb-8">
+              <div className="flex flex-col items-center justify-center space-y-2">
+                <Calendar className="h-8 w-8 text-gray-400" />
+                <h3 className="text-lg font-medium text-gray-700">You don't have a reservation yet</h3>
+                <p className="text-sm text-gray-500">Start a call to make your reservation</p>
+              </div>
+            </div>
+          )}
           
           {/* Reservation Details - Only shown after call is completed */}
           {callStatus === "completed" && (
@@ -256,3 +267,4 @@ const ReservationCall = () => {
 };
 
 export default ReservationCall;
+
