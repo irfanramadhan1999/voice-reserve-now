@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { MicIcon, PhoneIcon, MapPinIcon, InfoIcon, RestaurantIcon } from "lucide-react";
+import { MicIcon, PhoneIcon, MapPinIcon, InfoIcon, Utensils } from "lucide-react";
 
 const ReservationCall = () => {
   const { toast } = useToast();
@@ -95,7 +94,7 @@ const ReservationCall = () => {
         <Card className="mb-6 p-5 bg-white shadow-md">
           <div className="flex items-center">
             <div className="h-14 w-14 rounded-full bg-call-purple flex items-center justify-center">
-              <RestaurantIcon className="h-8 w-8 text-white" />
+              <Utensils className="h-8 w-8 text-white" />
             </div>
             <div className="ml-4">
               <h2 className="text-xl font-bold">{restaurant.name}</h2>
