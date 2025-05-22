@@ -101,7 +101,8 @@ const ReservationCall = () => {
               <p className="text-gray-500 text-sm">{currentDate}</p>
             </div>
             <div className="text-right">
-              {callStatus === "active" && (
+              {/* Always show call duration if a call has been made */}
+              {(callStatus === "active" || callStatus === "completed") && (
                 <div className="flex items-center text-green-600">
                   <Timer className="h-4 w-4 mr-1" />
                   <span>{formatDuration(duration)}</span>

@@ -2,7 +2,7 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, X } from "lucide-react";
+import { Calendar, X, Camera } from "lucide-react";
 
 interface ReservationDetailsProps {
   reservation: {
@@ -49,6 +49,14 @@ const ReservationDetails = ({ reservation, onCancelClick }: ReservationDetailsPr
           <span className="text-gray-500 text-sm">Guests:</span>
           <span className="font-medium text-sm">{reservation.guests}</span>
         </div>
+      </div>
+      
+      {/* Screenshot reminder message */}
+      <div className="mt-4 p-3 bg-yellow-50 border border-yellow-100 rounded-md flex items-start">
+        <Camera className="h-4 w-4 text-yellow-600 mt-0.5 mr-2 flex-shrink-0" />
+        <p className="text-xs text-yellow-700">
+          Please take a screenshot of these details to save your reservation information.
+        </p>
       </div>
       
       <Button 
