@@ -1,19 +1,12 @@
 
 import React, { useState, useEffect } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { PhoneIcon, Calendar, X, Mic, MicOff, Timer } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { Timer } from "lucide-react";
+import RestaurantInfoCard from "@/components/reservation/RestaurantInfoCard";
+import CallInterface from "@/components/reservation/CallInterface";
+import EmptyState from "@/components/reservation/EmptyState";
+import ReservationDetails from "@/components/reservation/ReservationDetails";
+import CancelDialog from "@/components/reservation/CancelDialog";
 
 const ReservationCall = () => {
   const { toast } = useToast();
@@ -118,153 +111,42 @@ const ReservationCall = () => {
           </div>
         
           {/* Restaurant Info Card */}
-          <Card className="mb-10 p-4 bg-blue-50/40 border-blue-100">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                  {/* Restaurant logo/avatar placeholder */}
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-blue-900">{restaurant.name}</h2>
-                  <div className="flex items-center text-gray-600 mt-1">
-                    <PhoneIcon className="h-3 w-3 mr-1" />
-                    <p className="text-xs">{restaurant.phone}</p>
-                  </div>
-                </div>
-              </div>
-              <Button 
-                onClick={startCall}
-                disabled={callStatus !== "ready"}
-                variant="outline" 
-                className="text-green-600 border-green-200 hover:bg-green-50 text-xs px-2 py-1 h-auto"
-              >
-                <span>Ready for call</span>
-              </Button>
-            </div>
-          </Card>
+          <RestaurantInfoCard 
+            restaurant={restaurant} 
+            callStatus={callStatus}
+            onStartCall={startCall}
+          />
           
           {/* Call Interface */}
-          <div className="mb-10">
-            <div className="flex flex-col items-center">
-              <div className="w-36 h-36 rounded-full bg-blue-100 flex items-center justify-center mb-4 relative">
-                <div className="w-28 h-28 rounded-full bg-blue-500 flex items-center justify-center">
-                  {callStatus === "ready" && (
-                    <Button 
-                      onClick={startCall} 
-                      className="h-20 w-20 rounded-full bg-green-500 hover:bg-green-600 border-4 border-white"
-                    >
-                      <Mic className="h-8 w-8 text-white" />
-                    </Button>
-                  )}
-                  {callStatus === "active" && (
-                    <div className="h-20 w-20 rounded-full bg-red-500 border-4 border-white flex items-center justify-center">
-                      <MicOff className="h-8 w-8 text-white" />
-                    </div>
-                  )}
-                  {callStatus === "completed" && (
-                    <div className="text-white flex items-center">
-                      <X className="h-10 w-10" />
-                    </div>
-                  )}
-                </div>
-              </div>
-              
-              {callStatus === "active" && (
-                <div className="text-center animate-pulse">
-                  <span className="text-blue-600 font-medium">Call in progress...</span>
-                </div>
-              )}
-              
-              {callStatus === "completed" && (
-                <div className="text-center">
-                  <span className="text-green-600 font-medium flex items-center justify-center">
-                    <span className="h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-                    Call Completed
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
+          <CallInterface 
+            callStatus={callStatus}
+            duration={duration}
+            onStartCall={startCall}
+            formatDuration={formatDuration}
+          />
           
           {/* Empty State - Only shown when no reservation and call not active */}
-          {callStatus === "ready" && (
-            <div className="text-center bg-gray-50 rounded-lg p-6 mb-8">
-              <div className="flex flex-col items-center justify-center space-y-2">
-                <Calendar className="h-8 w-8 text-gray-400" />
-                <h3 className="text-lg font-medium text-gray-700">You don't have a reservation yet</h3>
-                <p className="text-sm text-gray-500">Start a call to make your reservation</p>
-              </div>
-            </div>
-          )}
+          {callStatus === "ready" && <EmptyState />}
           
           {/* Reservation Details - Only shown after call is completed */}
           {callStatus === "completed" && (
-            <Card className="bg-blue-50/40 border-blue-100 p-4">
-              <div className="flex items-center mb-4">
-                <Calendar className="h-4 w-4 mr-2 text-blue-600" />
-                <h3 className="text-md font-semibold text-blue-900">Reservation Details</h3>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm">Booking ID:</span>
-                  <span className="font-medium text-sm">{reservation.id}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm">Customer:</span>
-                  <span className="font-medium text-sm">{reservation.customer}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm">Date:</span>
-                  <span className="font-medium text-sm">{reservation.date}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm">Time:</span>
-                  <span className="font-medium text-sm">{reservation.time}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm">Table:</span>
-                  <span className="font-medium text-sm">{reservation.table}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-500 text-sm">Guests:</span>
-                  <span className="font-medium text-sm">{reservation.guests}</span>
-                </div>
-              </div>
-              
-              <Button 
-                onClick={openCancelDialog}
-                variant="outline" 
-                className="w-full mt-4 bg-red-500 hover:bg-red-600 text-white border-none"
-              >
-                <X className="h-4 w-4 mr-1" />
-                Cancel Reservation
-              </Button>
-            </Card>
+            <ReservationDetails 
+              reservation={reservation}
+              onCancelClick={openCancelDialog}
+            />
           )}
         </div>
       </div>
       
       {/* Cancel Confirmation Dialog */}
-      <AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Cancel Reservation</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to cancel your reservation at {restaurant.name}? This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>No, Keep It</AlertDialogCancel>
-            <AlertDialogAction onClick={cancelReservation} className="bg-red-500 hover:bg-red-600">
-              Yes, Cancel Reservation
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <CancelDialog 
+        open={showCancelDialog} 
+        onOpenChange={setShowCancelDialog}
+        onConfirmCancel={cancelReservation}
+        restaurantName={restaurant.name}
+      />
     </div>
   );
 };
 
 export default ReservationCall;
-
