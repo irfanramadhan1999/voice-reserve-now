@@ -55,6 +55,15 @@ const ReservationCall = () => {
     }, 3000);
   };
 
+  // End call
+  const endCall = () => {
+    setCallStatus("completed");
+    toast({
+      title: "Call Ended",
+      description: "Your reservation has been confirmed",
+    });
+  };
+
   // Open cancel dialog
   const openCancelDialog = () => {
     setShowCancelDialog(true);
@@ -123,6 +132,7 @@ const ReservationCall = () => {
             callStatus={callStatus}
             duration={duration}
             onStartCall={startCall}
+            onEndCall={endCall}
             formatDuration={formatDuration}
           />
           

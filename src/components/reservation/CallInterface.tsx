@@ -1,16 +1,17 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, X } from "lucide-react";
+import { Phone, PhoneOff, X } from "lucide-react";
 
 interface CallInterfaceProps {
   callStatus: "ready" | "active" | "completed";
   duration: number;
   onStartCall: () => void;
+  onEndCall: () => void;
   formatDuration: (seconds: number) => string;
 }
 
-const CallInterface = ({ callStatus, duration, onStartCall, formatDuration }: CallInterfaceProps) => {
+const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDuration }: CallInterfaceProps) => {
   return (
     <div className="mb-10">
       <div className="flex flex-col items-center">
@@ -24,13 +25,17 @@ const CallInterface = ({ callStatus, duration, onStartCall, formatDuration }: Ca
                   className="h-16 w-16 rounded-full bg-blue-600 hover:bg-blue-700 border-0 transition-all duration-300 ease-in-out"
                   aria-label="Start call"
                 >
-                  <Mic className="h-6 w-6 text-white" />
+                  <Phone className="h-6 w-6 text-white" />
                 </Button>
               )}
               {callStatus === "active" && (
-                <div className="h-16 w-16 rounded-full bg-red-500 flex items-center justify-center transition-all duration-300 ease-in-out">
-                  <MicOff className="h-6 w-6 text-white" />
-                </div>
+                <Button
+                  onClick={onEndCall}
+                  className="h-16 w-16 rounded-full bg-red-500 hover:bg-red-600 border-0 transition-all duration-300 ease-in-out"
+                  aria-label="End call"
+                >
+                  <PhoneOff className="h-6 w-6 text-white" />
+                </Button>
               )}
               {callStatus === "completed" && (
                 <div className="text-white flex items-center">
