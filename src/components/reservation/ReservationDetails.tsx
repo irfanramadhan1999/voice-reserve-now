@@ -12,6 +12,7 @@ interface ReservationDetailsProps {
     time: string;
     table: string;
     guests: string;
+    timestamp: string;
   };
   onCancelClick: () => void;
 }
@@ -44,6 +45,10 @@ const ReservationDetails = ({ reservation, onCancelClick }: ReservationDetailsPr
         <div className="flex justify-between py-2 border-b border-gray-100">
           <span className="text-gray-500 text-sm">Guests:</span>
           <span className="font-medium text-sm">{reservation.guests}</span>
+        </div>
+        <div className="flex justify-between py-2 border-b border-gray-100">
+          <span className="text-gray-500 text-sm">Booked at:</span>
+          <span className="font-medium text-sm">{reservation.timestamp}</span>
         </div>
       </div>
       

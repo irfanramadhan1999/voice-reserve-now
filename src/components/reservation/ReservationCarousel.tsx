@@ -10,6 +10,7 @@ interface Reservation {
   time: string;
   table: string;
   guests: string;
+  timestamp: string;
 }
 
 interface ReservationCarouselProps {

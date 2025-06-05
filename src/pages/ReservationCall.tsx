@@ -15,6 +15,7 @@ interface Reservation {
   time: string;
   table: string;
   guests: string;
+  timestamp: string;
 }
 
 const ReservationCall = () => {
@@ -47,6 +48,18 @@ const ReservationCall = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
   
+  // Get current timestamp
+  const getCurrentTimestamp = () => {
+    const now = new Date();
+    return now.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+  
   // Start call
   const startCall = () => {
     setCallStatus("active");
@@ -67,7 +80,8 @@ const ReservationCall = () => {
         date: "May 23, 2025",
         time: "19:00 - 20:30",
         table: "Window Seat",
-        guests: "2 people"
+        guests: "2 people",
+        timestamp: getCurrentTimestamp()
       };
       
       setReservations(prev => [...prev, newReservation]);
@@ -90,7 +104,8 @@ const ReservationCall = () => {
       date: "May 23, 2025",
       time: "19:00 - 20:30",
       table: "Window Seat",
-      guests: "2 people"
+      guests: "2 people",
+      timestamp: getCurrentTimestamp()
     };
     
     setReservations(prev => [...prev, newReservation]);
@@ -169,8 +184,8 @@ const ReservationCall = () => {
           {/* Empty State - Only shown when no reservations and call not active */}
           {callStatus === "ready" && reservations.length === 0 && <EmptyState />}
           
-          {/* Reservation Details with Carousel - Only shown after call is completed and reservations exist */}
-          {callStatus === "completed" && reservations.length > 0 && (
+          {/* Reservation Details with Carousel - Show when reservations exist (regardless of call status) */}
+          {reservations.length > 0 && (
             <ReservationCarousel 
               reservations={reservations}
               onCancelClick={openCancelDialog}
