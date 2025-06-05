@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Timer } from "lucide-react";
@@ -184,12 +183,19 @@ const ReservationCall = () => {
           {/* Empty State - Only shown when no reservations and call not active */}
           {callStatus === "ready" && reservations.length === 0 && <EmptyState />}
           
-          {/* Reservation Details with Carousel - Show when reservations exist (regardless of call status) */}
+          {/* Reservation Details with Carousel - Show when reservations exist */}
           {reservations.length > 0 && (
             <ReservationCarousel 
               reservations={reservations}
               onCancelClick={openCancelDialog}
             />
+          )}
+          
+          {/* No reservations message - Show when no reservations but call has been made */}
+          {reservations.length === 0 && (callStatus === "active" || callStatus === "completed") && (
+            <div className="text-center bg-gray-50 rounded-lg p-6 mb-8">
+              <p className="text-gray-600">No reservations yet, please start a call to make a reservation</p>
+            </div>
           )}
         </div>
       </div>
