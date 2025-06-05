@@ -28,7 +28,7 @@ const ReservationCarousel = ({ reservations, onCancelClick }: ReservationCarouse
   }
 
   return (
-    <div className="relative">
+    <div className="relative px-12">
       <Carousel className="w-full">
         <CarouselContent>
           {reservations.map((reservation) => (
@@ -40,8 +40,8 @@ const ReservationCarousel = ({ reservations, onCancelClick }: ReservationCarouse
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2" />
-        <CarouselNext className="right-2" />
+        <CarouselPrevious className="-left-8 top-1/2" />
+        <CarouselNext className="-right-8 top-1/2" />
       </Carousel>
       
       {/* Pagination dots */}
