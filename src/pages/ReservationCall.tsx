@@ -193,8 +193,8 @@ const ReservationCall = () => {
           
           {/* No reservations message - Show when no reservations but call has been made */}
           {reservations.length === 0 && (callStatus === "active" || callStatus === "completed") && (
-            <div className="text-center bg-gray-50 rounded-lg p-6 mb-8">
-              <p className="text-gray-600">No reservations yet, please start a call to make a reservation</p>
+            <div className="bg-blue-50/40 border border-blue-100 rounded-lg p-6 mx-auto max-w-md w-full">
+              <p className="text-gray-600 text-center">No reservations yet, please start a call to make a reservation</p>
             </div>
           )}
         </div>
