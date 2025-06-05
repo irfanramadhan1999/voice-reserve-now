@@ -61,12 +61,21 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
         )}
         
         {callStatus === "completed" && (
-          <div className="text-center">
-            <span className="text-green-600 font-medium flex items-center justify-center">
-              <span className="h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-              Call Completed
-            </span>
-          </div>
+          <>
+            <div className="text-center mb-4">
+              <span className="text-green-600 font-medium flex items-center justify-center">
+                <span className="h-2 w-2 rounded-full bg-green-500 mr-2"></span>
+                Call Completed
+              </span>
+            </div>
+            <Button 
+              onClick={onStartCall} 
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 ease-in-out"
+            >
+              <Phone className="h-5 w-5 mr-2" />
+              Call Again
+            </Button>
+          </>
         )}
       </div>
     </div>
