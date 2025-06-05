@@ -15,27 +15,15 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
   return (
     <div className="mb-10">
       <div className="flex flex-col items-center">
-        {/* Updated call display to match the provided image */}
-        <div className="w-36 h-36 rounded-full bg-blue-100/50 flex items-center justify-center mb-4 relative">
+        {/* Call display circle */}
+        <div className="w-36 h-36 rounded-full bg-blue-100/50 flex items-center justify-center mb-6 relative">
           <div className="w-32 h-32 rounded-full bg-blue-50/70 flex items-center justify-center">
             <div className="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center shadow-lg">
               {callStatus === "ready" && (
-                <Button 
-                  onClick={onStartCall} 
-                  className="h-16 w-16 rounded-full bg-blue-600 hover:bg-blue-700 border-0 transition-all duration-300 ease-in-out"
-                  aria-label="Start call"
-                >
-                  <Phone className="h-6 w-6 text-white" />
-                </Button>
+                <Phone className="h-8 w-8 text-white" />
               )}
               {callStatus === "active" && (
-                <Button
-                  onClick={onEndCall}
-                  className="h-16 w-16 rounded-full bg-red-500 hover:bg-red-600 border-0 transition-all duration-300 ease-in-out"
-                  aria-label="End call"
-                >
-                  <PhoneOff className="h-6 w-6 text-white" />
-                </Button>
+                <Phone className="h-8 w-8 text-white animate-pulse" />
               )}
               {callStatus === "completed" && (
                 <div className="text-white flex items-center">
@@ -46,10 +34,30 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
           </div>
         </div>
         
+        {/* Call action button */}
+        {callStatus === "ready" && (
+          <Button 
+            onClick={onStartCall} 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 ease-in-out"
+          >
+            <Phone className="h-5 w-5 mr-2" />
+            Start Call
+          </Button>
+        )}
+        
         {callStatus === "active" && (
-          <div className="text-center animate-pulse">
-            <span className="text-blue-600 font-medium">Call in progress...</span>
-          </div>
+          <>
+            <div className="text-center mb-4">
+              <span className="text-blue-600 font-medium">Call in progress...</span>
+            </div>
+            <Button
+              onClick={onEndCall}
+              className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 ease-in-out"
+            >
+              <PhoneOff className="h-5 w-5 mr-2" />
+              End Call
+            </Button>
+          </>
         )}
         
         {callStatus === "completed" && (

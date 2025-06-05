@@ -27,7 +27,11 @@ const RestaurantInfoCard = ({ restaurant, callStatus, onStartCall }: RestaurantI
       <div className={`${isMobile ? 'flex flex-col items-center' : 'flex items-center justify-between'}`}>
         <div className={`flex items-center ${isMobile ? 'mb-4' : ''}`}>
           <Avatar className="h-12 w-12 mr-4">
-            <AvatarImage src="/placeholder.svg" alt={restaurant.name} />
+            <AvatarImage 
+              src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop&crop=center" 
+              alt={restaurant.name} 
+              className="object-cover"
+            />
             <AvatarFallback className="bg-blue-100 text-blue-500">
               {restaurant.name.split(' ').map(word => word[0]).join('').slice(0, 2)}
             </AvatarFallback>
