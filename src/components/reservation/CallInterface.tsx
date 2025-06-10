@@ -1,7 +1,8 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, PhoneOff, X } from "lucide-react";
+import { Phone, PhoneOff, X, Timer } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface CallInterfaceProps {
   callStatus: "ready" | "active" | "completed";
@@ -9,25 +10,45 @@ interface CallInterfaceProps {
   onStartCall: () => void;
   onEndCall: () => void;
   formatDuration: (seconds: number) => string;
+  restaurant: {
+    name: string;
+    phone: string;
+    address: string;
+  };
 }
 
-const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDuration }: CallInterfaceProps) => {
+const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDuration, restaurant }: CallInterfaceProps) => {
   return (
     <div className="mb-10">
       <div className="flex flex-col items-center">
-        {/* Call display circle */}
+        {/* Timer - Always show, centered above the main icon */}
+        <div className="flex items-center text-green-600 mb-4">
+          <Timer className="h-4 w-4 mr-1" />
+          <span>{formatDuration(duration)}</span>
+        </div>
+        
+        {/* Call display circle with restaurant profile picture */}
         <div className="w-36 h-36 rounded-full bg-blue-100/50 flex items-center justify-center mb-6 relative">
           <div className="w-32 h-32 rounded-full bg-blue-50/70 flex items-center justify-center">
-            <div className="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center shadow-lg">
-              {callStatus === "ready" && (
-                <Phone className="h-8 w-8 text-white" />
-              )}
+            <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg">
+              <Avatar className="w-full h-full">
+                <AvatarImage 
+                  src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop&crop=center" 
+                  alt={restaurant.name} 
+                  className="object-cover w-full h-full"
+                />
+                <AvatarFallback className="bg-blue-500 text-white text-lg font-bold w-full h-full flex items-center justify-center">
+                  {restaurant.name.split(' ').map(word => word[0]).join('').slice(0, 2)}
+                </AvatarFallback>
+              </Avatar>
+              
+              {/* Call status overlay */}
               {callStatus === "active" && (
-                <Phone className="h-8 w-8 text-white animate-pulse" />
+                <div className="absolute inset-0 bg-blue-500/20 rounded-full animate-pulse"></div>
               )}
               {callStatus === "completed" && (
-                <div className="text-white flex items-center">
-                  <X className="h-8 w-8" />
+                <div className="absolute inset-0 bg-green-500/20 rounded-full flex items-center justify-center">
+                  <X className="h-6 w-6 text-green-600" />
                 </div>
               )}
             </div>

@@ -33,6 +33,8 @@ const ReservationCall = () => {
       intervalId = window.setInterval(() => {
         setDuration(prev => prev + 1);
       }, 1000);
+    } else if (callStatus === "ready") {
+      setDuration(0);
     }
     
     return () => {
@@ -138,7 +140,8 @@ const ReservationCall = () => {
   // Mock restaurant data
   const restaurant = {
     name: "Sakura Sushi Tokyo",
-    phone: "01-90-1234-5678"
+    phone: "01-90-1234-5678",
+    address: "1-2-3 Shibuya, Tokyo, Japan"
   };
 
   const currentDate = "Thursday, May 22, 2025";
@@ -178,6 +181,7 @@ const ReservationCall = () => {
             onStartCall={startCall}
             onEndCall={endCall}
             formatDuration={formatDuration}
+            restaurant={restaurant}
           />
           
           {/* Empty State - Only shown when no reservations and call not active */}

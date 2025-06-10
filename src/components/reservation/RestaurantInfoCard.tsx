@@ -2,14 +2,14 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PhoneIcon } from "lucide-react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { PhoneIcon, MapPinIcon } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 interface RestaurantInfoCardProps {
   restaurant: {
     name: string;
     phone: string;
+    address: string;
   };
   callStatus: "ready" | "active" | "completed";
   onStartCall: () => void;
@@ -25,23 +25,15 @@ const RestaurantInfoCard = ({ restaurant, callStatus, onStartCall }: RestaurantI
   return (
     <Card className="mb-10 p-4 bg-blue-50/40 border-blue-100">
       <div className={`${isMobile ? 'flex flex-col items-center' : 'flex items-center justify-between'}`}>
-        <div className={`flex items-center ${isMobile ? 'mb-4' : ''}`}>
-          <Avatar className="h-12 w-12 mr-4">
-            <AvatarImage 
-              src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop&crop=center" 
-              alt={restaurant.name} 
-              className="object-cover"
-            />
-            <AvatarFallback className="bg-blue-100 text-blue-500">
-              {restaurant.name.split(' ').map(word => word[0]).join('').slice(0, 2)}
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <h2 className="text-lg font-bold text-blue-900">{restaurant.name}</h2>
-            <div className="flex items-center text-gray-600 mt-1">
-              <PhoneIcon className="h-3 w-3 mr-1" />
-              <p className="text-xs">{restaurant.phone}</p>
-            </div>
+        <div className={`${isMobile ? 'mb-4 text-center' : ''}`}>
+          <h2 className="text-lg font-bold text-blue-900">{restaurant.name}</h2>
+          <div className="flex items-center text-gray-600 mt-1">
+            <PhoneIcon className="h-3 w-3 mr-1" />
+            <p className="text-xs">{restaurant.phone}</p>
+          </div>
+          <div className="flex items-center text-gray-600 mt-1">
+            <MapPinIcon className="h-3 w-3 mr-1" />
+            <p className="text-xs">{restaurant.address}</p>
           </div>
         </div>
         <div className={`flex items-center ${isMobile ? 'w-full justify-center' : ''}`}>
