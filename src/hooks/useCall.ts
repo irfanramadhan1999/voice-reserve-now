@@ -24,6 +24,22 @@ export const useCall = (onCallCompleted: () => void) => {
     };
   }, [callStatus]);
 
+  // Handle auto-reset after call completion
+  useEffect(() => {
+    let timeoutId: number | undefined;
+    
+    if (callStatus === "completed") {
+      timeoutId = window.setTimeout(() => {
+        setCallStatus("ready");
+        setDuration(0);
+      }, 2000);
+    }
+    
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [callStatus]);
+
   // Format duration to mm:ss
   const formatDuration = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
