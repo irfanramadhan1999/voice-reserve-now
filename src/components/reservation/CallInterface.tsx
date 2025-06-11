@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, PhoneOff, X, Timer } from "lucide-react";
+import { Phone, PhoneOff, X } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface CallInterfaceProps {
@@ -21,12 +21,6 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
   return (
     <div className="mb-10">
       <div className="flex flex-col items-center">
-        {/* Timer - Always show, centered above the main icon */}
-        <div className="flex items-center text-green-600 mb-4">
-          <Timer className="h-4 w-4 mr-1" />
-          <span>{formatDuration(duration)}</span>
-        </div>
-        
         {/* Call display circle with restaurant profile picture */}
         <div className="w-36 h-36 rounded-full bg-blue-100/50 flex items-center justify-center mb-6 relative">
           <div className="w-32 h-32 rounded-full bg-blue-50/70 flex items-center justify-center">
@@ -54,6 +48,13 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
             </div>
           </div>
         </div>
+
+        {/* Timer - Only show when call is active, centered above the button */}
+        {callStatus === "active" && (
+          <div className="text-green-600 mb-4 text-lg font-medium">
+            {formatDuration(duration)}
+          </div>
+        )}
         
         {/* Call action button */}
         {callStatus === "ready" && (
