@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, PhoneOff, X } from "lucide-react";
@@ -50,22 +51,13 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
         
         {/* Call action button */}
         {callStatus === "ready" && (
-          <>
-            <Button 
-              onClick={onStartCall} 
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 ease-in-out"
-            >
-              <Phone className="h-5 w-5 mr-2" />
-              Start Call
-            </Button>
-            
-            {/* Timer - Only show when call is active, positioned under the start call button */}
-            {callStatus === "active" && (
-              <div className="text-green-600 mt-4 text-lg font-medium">
-                {formatDuration(duration)}
-              </div>
-            )}
-          </>
+          <Button 
+            onClick={onStartCall} 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 ease-in-out"
+          >
+            <Phone className="h-5 w-5 mr-2" />
+            Start Call
+          </Button>
         )}
         
         {callStatus === "active" && (
