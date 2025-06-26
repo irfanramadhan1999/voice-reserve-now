@@ -1,11 +1,11 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, PhoneOff, X } from "lucide-react";
+import { Phone, PhoneOff, X, PhoneCall } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface CallInterfaceProps {
-  callStatus: "ready" | "active" | "completed";
+  callStatus: "ready" | "active" | "completed" | "unavailable";
   duration: number;
   onStartCall: () => void;
   onEndCall: () => void;
@@ -43,6 +43,11 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
               {callStatus === "completed" && (
                 <div className="absolute inset-0 bg-green-500/20 rounded-full flex items-center justify-center">
                   <X className="h-6 w-6 text-green-600" />
+                </div>
+              )}
+              {callStatus === "unavailable" && (
+                <div className="absolute inset-0 bg-gray-500/20 rounded-full flex items-center justify-center">
+                  <PhoneCall className="h-6 w-6 text-gray-600" />
                 </div>
               )}
             </div>
@@ -95,6 +100,22 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
               <Phone className="h-5 w-5 mr-2" />
               Start Call
             </Button>
+          </>
+        )}
+
+        {callStatus === "unavailable" && (
+          <>
+            <div className="text-center mb-4">
+              <span className="text-red-600 font-medium flex items-center justify-center">
+                <span className="h-2 w-2 rounded-full bg-red-500 mr-2"></span>
+                Call Unavailable
+              </span>
+            </div>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-sm">
+              <p className="text-red-700 text-sm text-center">
+                The shop is currently unable to receive calls. Please try again later.
+              </p>
+            </div>
           </>
         )}
       </div>

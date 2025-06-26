@@ -21,7 +21,7 @@ interface ReservationContentProps {
     phone: string;
     address: string;
   };
-  callStatus: "ready" | "active" | "completed";
+  callStatus: "ready" | "active" | "completed" | "unavailable";
   duration: number;
   formatDuration: (seconds: number) => string;
   onStartCall: () => void;
@@ -59,8 +59,8 @@ const ReservationContent = ({
         restaurant={restaurant}
       />
       
-      {/* Empty State - Only shown when no reservations and call not active */}
-      {callStatus === "ready" && reservations.length === 0 && <EmptyState />}
+      {/* Empty State - Only shown when no reservations and call not active or unavailable */}
+      {(callStatus === "ready" || callStatus === "unavailable") && reservations.length === 0 && <EmptyState />}
       
       {/* Reservation Details with Carousel - Show when reservations exist */}
       {reservations.length > 0 && (

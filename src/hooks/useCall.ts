@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export const useCall = (onCallCompleted: () => void) => {
   const { toast } = useToast();
-  const [callStatus, setCallStatus] = useState<"ready" | "active" | "completed">("ready");
+  const [callStatus, setCallStatus] = useState<"ready" | "active" | "completed" | "unavailable">("ready");
   const [duration, setDuration] = useState(0);
 
   // Handle call duration timer
@@ -79,11 +79,22 @@ export const useCall = (onCallCompleted: () => void) => {
     });
   };
 
+  // Set call as unavailable (can be called externally)
+  const setCallUnavailable = () => {
+    setCallStatus("unavailable");
+    toast({
+      title: "Call Unavailable",
+      description: "The shop is currently unable to receive calls",
+      variant: "destructive",
+    });
+  };
+
   return {
     callStatus,
     duration,
     formatDuration,
     startCall,
-    endCall
+    endCall,
+    setCallUnavailable
   };
 };
