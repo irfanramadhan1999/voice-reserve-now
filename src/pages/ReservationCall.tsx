@@ -4,6 +4,7 @@ import { useReservations } from "@/hooks/useReservations";
 import { useCall } from "@/hooks/useCall";
 import ReservationContent from "@/components/reservation/ReservationContent";
 import CancelDialog from "@/components/reservation/CancelDialog";
+import { Button } from "@/components/ui/button";
 
 const ReservationCall = () => {
   const {
@@ -20,7 +21,8 @@ const ReservationCall = () => {
     duration,
     formatDuration,
     startCall,
-    endCall
+    endCall,
+    setCallUnavailable
   } = useCall(addReservation);
 
   // Mock restaurant data
@@ -42,6 +44,15 @@ const ReservationCall = () => {
               <h1 className="text-2xl font-bold">Reservation Call</h1>
               <p className="text-gray-500 text-sm">{currentDate}</p>
             </div>
+            {/* Test button to trigger unavailable state */}
+            <Button 
+              onClick={setCallUnavailable}
+              variant="outline"
+              size="sm"
+              className="text-xs"
+            >
+              Test Unavailable
+            </Button>
           </div>
         
           <ReservationContent
