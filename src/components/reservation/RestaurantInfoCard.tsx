@@ -11,7 +11,7 @@ interface RestaurantInfoCardProps {
     phone: string;
     address: string;
   };
-  callStatus: "ready" | "active" | "completed";
+  callStatus: "ready" | "active" | "completed" | "unavailable";
   onStartCall: () => void;
 }
 
