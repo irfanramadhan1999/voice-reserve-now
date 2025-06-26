@@ -11,11 +11,9 @@ interface RestaurantInfoCardProps {
     phone: string;
     address: string;
   };
-  callStatus: "ready" | "active" | "completed" | "unavailable";
-  onStartCall: () => void;
 }
 
-const RestaurantInfoCard = ({ restaurant, callStatus, onStartCall }: RestaurantInfoCardProps) => {
+const RestaurantInfoCard = ({ restaurant }: RestaurantInfoCardProps) => {
   const isMobile = useIsMobile();
   
   // Determine restaurant status (open/closed) based on time or other logic

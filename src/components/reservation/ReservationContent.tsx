@@ -45,8 +45,6 @@ const ReservationContent = ({
       {/* Restaurant Info Card */}
       <RestaurantInfoCard 
         restaurant={restaurant} 
-        callStatus={callStatus}
-        onStartCall={onStartCall}
       />
       
       {/* Call Interface */}
