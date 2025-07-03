@@ -1,11 +1,11 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, PhoneOff, X, PhoneCall } from "lucide-react";
+import { Phone, PhoneOff, X, PhoneCall, Ban } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface CallInterfaceProps {
-  callStatus: "ready" | "active" | "completed" | "unavailable";
+  callStatus: "ready" | "active" | "completed" | "unavailable" | "blocked";
   duration: number;
   onStartCall: () => void;
   onEndCall: () => void;
@@ -48,6 +48,11 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
               {callStatus === "unavailable" && (
                 <div className="absolute inset-0 bg-gray-500/20 rounded-full flex items-center justify-center">
                   <PhoneCall className="h-6 w-6 text-gray-600" />
+                </div>
+              )}
+              {callStatus === "blocked" && (
+                <div className="absolute inset-0 bg-red-500/20 rounded-full flex items-center justify-center">
+                  <Ban className="h-6 w-6 text-red-600" />
                 </div>
               )}
             </div>
@@ -114,6 +119,25 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-sm">
               <p className="text-red-700 text-sm text-center">
                 The shop is currently unable to receive calls. Please try again later.
+              </p>
+            </div>
+          </>
+        )}
+
+        {callStatus === "blocked" && (
+          <>
+            <div className="text-center mb-4">
+              <span className="text-red-600 font-medium flex items-center justify-center">
+                <Ban className="h-4 w-4 mr-2" />
+                Access Blocked
+              </span>
+            </div>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-sm">
+              <p className="text-red-700 text-sm text-center font-medium mb-2">
+                Your IP address has been blocked
+              </p>
+              <p className="text-red-600 text-xs text-center">
+                This IP has been identified as spam. Please contact support if you believe this is an error.
               </p>
             </div>
           </>

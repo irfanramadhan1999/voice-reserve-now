@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export const useCall = (onCallCompleted: () => void) => {
   const { toast } = useToast();
-  const [callStatus, setCallStatus] = useState<"ready" | "active" | "completed" | "unavailable">("ready");
+  const [callStatus, setCallStatus] = useState<"ready" | "active" | "completed" | "unavailable" | "blocked">("ready");
   const [duration, setDuration] = useState(0);
 
   // Handle call duration timer
@@ -89,12 +89,23 @@ export const useCall = (onCallCompleted: () => void) => {
     });
   };
 
+  // Set call as blocked due to spam detection
+  const setCallBlocked = () => {
+    setCallStatus("blocked");
+    toast({
+      title: "Access Blocked",
+      description: "Your IP address has been blocked due to spam detection",
+      variant: "destructive",
+    });
+  };
+
   return {
     callStatus,
     duration,
     formatDuration,
     startCall,
     endCall,
-    setCallUnavailable
+    setCallUnavailable,
+    setCallBlocked
   };
 };

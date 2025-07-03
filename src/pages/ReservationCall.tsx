@@ -22,7 +22,8 @@ const ReservationCall = () => {
     formatDuration,
     startCall,
     endCall,
-    setCallUnavailable
+    setCallUnavailable,
+    setCallBlocked
   } = useCall(addReservation);
 
   // Mock restaurant data
@@ -44,15 +45,25 @@ const ReservationCall = () => {
               <h1 className="text-2xl font-bold">Reservation Call</h1>
               <p className="text-gray-500 text-sm">{currentDate}</p>
             </div>
-            {/* Test button to trigger unavailable state */}
-            <Button 
-              onClick={setCallUnavailable}
-              variant="outline"
-              size="sm"
-              className="text-xs"
-            >
-              Test Unavailable
-            </Button>
+            {/* Test buttons to trigger different states */}
+            <div className="flex flex-col gap-2">
+              <Button 
+                onClick={setCallUnavailable}
+                variant="outline"
+                size="sm"
+                className="text-xs"
+              >
+                Test Unavailable
+              </Button>
+              <Button 
+                onClick={setCallBlocked}
+                variant="outline"
+                size="sm"
+                className="text-xs"
+              >
+                Test Blocked
+              </Button>
+            </div>
           </div>
         
           <ReservationContent
