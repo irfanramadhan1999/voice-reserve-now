@@ -134,10 +134,10 @@ const CallInterface = ({ callStatus, duration, onStartCall, onEndCall, formatDur
             </div>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-sm">
               <p className="text-red-700 text-sm text-center font-medium mb-2">
-                Your IP address has been blocked
+                You have been blocked
               </p>
               <p className="text-red-600 text-xs text-center">
-                This IP has been identified as spam. Please contact support if you believe this is an error.
+                You have been identified as making spam calls. Please contact support if you believe this is an error.
               </p>
             </div>
           </>

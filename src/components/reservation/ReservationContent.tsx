@@ -58,7 +58,24 @@ const ReservationContent = ({
       />
       
       {/* Empty State - Only shown when no reservations and call not active, unavailable, or blocked */}
-      {(callStatus === "ready" || callStatus === "unavailable" || callStatus === "blocked") && reservations.length === 0 && <EmptyState />}
+      {(callStatus === "ready" || callStatus === "unavailable") && reservations.length === 0 && <EmptyState />}
+      
+      {/* Blocked State - Show spam identification reasons */}
+      {callStatus === "blocked" && (
+        <div className="bg-red-50/40 border border-red-100 rounded-lg p-6 mx-auto max-w-md w-full">
+          <h3 className="text-red-700 font-medium text-center mb-4">Why you were identified as spam:</h3>
+          <ul className="text-red-600 text-sm space-y-2">
+            <li className="flex items-start">
+              <span className="text-red-500 mr-2">•</span>
+              Repeatedly calling and hanging up
+            </li>
+            <li className="flex items-start">
+              <span className="text-red-500 mr-2">•</span>
+              Long calls asking questions unrelated to the restaurant and ultimately not making a reservation
+            </li>
+          </ul>
+        </div>
+      )}
       
       {/* Reservation Details with Carousel - Show when reservations exist */}
       {reservations.length > 0 && (
