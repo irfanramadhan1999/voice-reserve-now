@@ -5,6 +5,7 @@ import { useCall } from "@/hooks/useCall";
 import ReservationContent from "@/components/reservation/ReservationContent";
 import CancelDialog from "@/components/reservation/CancelDialog";
 import { Button } from "@/components/ui/button";
+import restaurantLogo from "@/assets/restaurant-logo.png";
 
 const ReservationCall = () => {
   const {
@@ -41,9 +42,16 @@ const ReservationCall = () => {
         {/* Phone-like wrapper */}
         <div className="p-6 pb-10 relative">
           <div className="flex justify-between items-start mb-8">
-            <div>
-              <h1 className="text-2xl font-bold">Reservation Call</h1>
-              <p className="text-gray-500 text-sm">{currentDate}</p>
+            <div className="flex items-center gap-3">
+              <img 
+                src={restaurantLogo} 
+                alt="Restaurant Logo" 
+                className="w-10 h-10 rounded-lg object-cover"
+              />
+              <div>
+                <h1 className="text-2xl font-bold">Reservation Call</h1>
+                <p className="text-gray-500 text-sm">{currentDate}</p>
+              </div>
             </div>
             {/* Test buttons to trigger different states */}
             <div className="flex flex-col gap-2">
